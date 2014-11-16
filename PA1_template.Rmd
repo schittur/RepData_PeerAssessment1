@@ -34,9 +34,22 @@ ggplot(totalstepsperday, aes(x=date, y=steps)) +
 
 Mean total steps per day = `r meansteps`
 
-Median total steps per day = `r strmediansteps`
+Median total steps per day = `r mediansteps`
 
 ## What is the average daily activity pattern?
+```{r}
+averagestepsperinterval <- aggregate(steps ~ interval, data=activitydata, FUN=mean);
+plot(averagestepsperinterval$steps ~ averagestepsperinterval$interval, type="l",
+      xlab= "Interval", ylab = "Average Steps")
+title(main="Average Steps per Interval");
+
+maxinterval = 
+averagestepsperinterval[which (
+averagestepsperinterval$steps == max(averagestepsperinterval$steps)),]$interval
+
+```
+5 Minute interval having max average steps = `r maxinterval`
+
 
 
 
