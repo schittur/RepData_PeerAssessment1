@@ -5,13 +5,28 @@ output:
     keep_md: true
 ---
 
-
 ## Loading and preprocessing the data
+```{r}
+require(ggplot2);
+require(scales);
 
-
+setwd("C:\\Coursera\\assignment");
+activitydata <- read.csv("activity.csv");
+activitydata$date = as.Date(activitydata$date, format="%Y-%M-%d")
+```
 
 ## What is mean total number of steps taken per day?
 
+```{r}
+meanstepsperday <- aggregate(steps ~ date, data=activitydata, FUN=mean);
+ggplot(meanstepsperday, aes(x=date, y=steps)) +
+    xlab("Date") + ylab("Total Steps") + 
+    geom_bar(stat="identity") +
+    scale_x_date(labels = date_format("%m-%d-%Y")) +
+    ggtitle("Total Steps by Date") +
+    theme(plot.title = element_text(lineheight=.8, face="bold"));
+
+```
 
 
 ## What is the average daily activity pattern?
@@ -23,3 +38,4 @@ output:
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
+
