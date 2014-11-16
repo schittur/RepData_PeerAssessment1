@@ -28,8 +28,13 @@ activitydata$date = as.Date(activitydata$date, format="%Y-%M-%d")
 
 
 ```r
-meanstepsperday <- aggregate(steps ~ date, data=activitydata, FUN=mean);
-ggplot(meanstepsperday, aes(x=date, y=steps)) +
+totalstepsperday <- aggregate(steps ~ date, data=activitydata, FUN=sum);
+
+meansteps = mean(totalstepsperday$steps);
+mediansteps = median(totalstepsperday$steps);
+strmediansteps = sprintf("%10.2f", mediansteps);
+
+ggplot(totalstepsperday, aes(x=date, y=steps)) +
     xlab("Date") + ylab("Total Steps") + 
     geom_bar(stat="identity") +
     scale_x_date(labels = date_format("%m-%d-%Y")) +
@@ -39,6 +44,9 @@ ggplot(meanstepsperday, aes(x=date, y=steps)) +
 
 ![](PA1_template_files/figure-html/unnamed-chunk-2-1.png) 
 
+Mean total steps per day = 1.9144621\times 10^{4}
+
+Median total steps per day =   20670.00
 
 ## What is the average daily activity pattern?
 
