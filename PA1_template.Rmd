@@ -18,8 +18,12 @@ activitydata$date = as.Date(activitydata$date, format="%Y-%M-%d")
 ## What is mean total number of steps taken per day?
 
 ```{r}
-meanstepsperday <- aggregate(steps ~ date, data=activitydata, FUN=mean);
-ggplot(meanstepsperday, aes(x=date, y=steps)) +
+totalstepsperday <- aggregate(steps ~ date, data=activitydata, FUN=sum);
+
+meansteps = mean(totalstepsperday$steps);
+mediansteps = median(totalstepsperday$steps);
+
+ggplot(totalstepsperday, aes(x=date, y=steps)) +
     xlab("Date") + ylab("Total Steps") + 
     geom_bar(stat="identity") +
     scale_x_date(labels = date_format("%m-%d-%Y")) +
@@ -28,6 +32,9 @@ ggplot(meanstepsperday, aes(x=date, y=steps)) +
 
 ```
 
+Mean total steps per day = `r meansteps`
+
+Median total steps per day = `r strmediansteps`
 
 ## What is the average daily activity pattern?
 
